@@ -3,14 +3,15 @@
         <h3>Send Money</h3>
         <form @submit.prevent="submit">
             <div>
-                <label>Receiver ID</label>
-                <input v-model.number="receiverId" type="number" />
+                <label class="label-ma">Receiver ID</label>
+                <input class="input-ma" v-model.number="receiverId" type="number" />
             </div>
             <div>
-                <label>Amount</label>
-                <input v-model.number="amount" type="number" step="0.01" />
+                <label class="label-ma">Amount</label>
+                <input class="input-ma" v-model.number="amount" type="number" step="0.01" />
             </div>
-            <button :disabled="loading">{{ loading ? 'Sending...' : 'Send' }}</button>
+            <br>
+            <button class="button-ma" :disabled="loading">{{ loading ? 'Sending...' : 'Send' }}</button>
             <div v-if="error" style="color:red;margin-top:10px">{{ error }}</div>
             <div v-if="success" style="color:green;margin-top:10px">{{ success }}</div>
         </form>

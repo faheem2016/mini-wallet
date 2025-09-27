@@ -77,16 +77,20 @@ function onTransferSuccess() {
         <div
             class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4"
         >
-            <div style="max-width:900px;margin:40px auto;font-family:Arial,Helvetica,sans-serif">
-                <h1>Mini Wallet</h1>
-                <div style="display:flex;gap:20px;">
-                    <div style="flex: 1;">
-                        <transfer-form :userId="userId" @transfer-success="onTransferSuccess" />
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="margin-bottom:10px">
-                            <strong>Balance:</strong> ${{ balanceFormatted }}
+            <div class="container-ma">
+                <h1 style="text-align:center; margin-bottom: 30px;">💳 Mini Wallet</h1>
+
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
+                    <transfer-form :userId="userId" @transfer-success="onTransferSuccess" />
+
+                    <div>
+                        <div class="card-ma" style="text-align:center;">
+                            <h2>Current Balance</h2>
+                            <p style="font-size: 2rem; font-weight: bold; color: #2563eb;">
+                                {{ balanceFormatted }}
+                            </p>
                         </div>
+
                         <transactions-list :transactions="transactions" />
                     </div>
                 </div>
@@ -94,3 +98,64 @@ function onTransferSuccess() {
         </div>
     </AppLayout>
 </template>
+
+<style>
+
+h1, h2, h3 {
+    margin: 0 0 12px 0;
+}
+
+.container-ma {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.card-ma {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.button-ma {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.button-ma:hover {
+    background: #1d4ed8;
+}
+
+.input-ma {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.label-ma {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.error-ma {
+    color: #dc2626;
+    margin-top: 8px;
+}
+
+.success-ma {
+    color: #16a34a;
+    margin-top: 8px;
+}
+
+</style>

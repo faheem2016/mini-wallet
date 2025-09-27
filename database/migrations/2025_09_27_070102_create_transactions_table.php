@@ -19,7 +19,6 @@ return new class extends Migration
             $table->decimal('commission_fee', 20, 4); // commission charged to sender
             $table->decimal('total_debit', 20, 4); // amount + commission
             $table->string('status')->default('completed'); // completed, failed, pending
-            $table->text('meta')->nullable();
             $table->timestamps();
 
             $table->index('sender_id');

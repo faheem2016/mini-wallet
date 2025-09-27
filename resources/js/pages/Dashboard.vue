@@ -16,6 +16,8 @@ import axios from 'axios';
 import Echo from 'laravel-echo';
 import TransferForm from './components/TransferForm.vue';
 import TransactionsList from './components/TransactionsList.vue';
+import Alert from './components/Alert.vue';
+import { LoaderCircle } from 'lucide-vue-next';
 
 const page = usePage();
 const user = page.props.auth.user;
@@ -28,6 +30,10 @@ axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
 const balance = ref('0.00');
 const transactions = ref([]);
+
+const showAlert = ref(false)
+const alertMessage = ref('')
+const loading = ref(false)
 
 function fetchTransactions() {
     axios.get('/api/transactions')
@@ -61,12 +67,19 @@ onMounted(() => {
             if (tx.sender_id === userId || tx.receiver_id === userId) {
                 // Prefer fetching server-side balance to avoid rounding issues
                 fetchTransactions();
+                loading.value = false
             }
         });
 });
 
 function onTransferSuccess() {
-    fetchTransactions();
+    alertMessage.value = '✅ Transfer completed successfully!'
+    showAlert.value = true
+
+    loading.value = true
+
+    // auto-hide after 3s
+    setTimeout(() => showAlert.value = false, 3000)
 }
 </script>
 
@@ -80,13 +93,22 @@ function onTransferSuccess() {
             <div class="container-ma">
                 <h1 style="text-align:center; margin-bottom: 30px;">💳 Mini Wallet</h1>
 
+                <Alert v-if="showAlert" :message="alertMessage" type="success" />
+
                 <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px;">
                     <transfer-form :userId="userId" @transfer-success="onTransferSuccess" />
 
                     <div>
                         <div class="card-ma" style="text-align:center;">
-                            <h2>Current Balance</h2>
-                            <p style="font-size: 2rem; font-weight: bold; color: #2563eb;">
+                            <h2 class="flex items-center justify-center gap-2">
+                                Current Balance
+                                <LoaderCircle
+                                    v-if="loading"
+                                    class="h-4 w-4 animate-spin text-gray-500"
+                                />
+                            </h2>
+
+                            <p class="text-3xl font-bold text-blue-600">
                                 {{ balanceFormatted }}
                             </p>
                         </div>

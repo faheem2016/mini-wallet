@@ -17,8 +17,14 @@
 </template>
 
 <script setup>
+import { usePage } from '@inertiajs/vue3';
+
 const props = defineProps({
     transactions: Array
 });
-const myId = 1; // hardcoded for demo — replace with real authenticated user id in real app
+
+const page = usePage();
+const user = page.props.auth.user;
+
+const myId = user.id;
 </script>

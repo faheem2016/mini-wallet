@@ -5,10 +5,12 @@
             <div>
                 <label class="label-ma">Receiver ID</label>
                 <input class="input-ma" v-model.number="receiverId" type="number" />
+                <div v-if="errors['receiver_id']?.length" style="color:red;margin-top:10px">{{ errors['receiver_id'][0] }}</div>
             </div>
             <div>
                 <label class="label-ma">Amount</label>
                 <input class="input-ma" v-model.number="amount" type="number" step="0.01" />
+                <div v-if="errors['amount']?.length" style="color:red;margin-top:10px">{{ errors['amount'][0] }}</div>
             </div>
             <br>
             <button class="button-ma" :disabled="loading">{{ loading ? 'Sending...' : 'Send' }}</button>
@@ -30,6 +32,7 @@ const receiverId = ref('');
 const amount = ref('');
 const loading = ref(false);
 const error = ref('');
+const errors = ref([]);
 const success = ref('');
 
 async function submit() {
@@ -37,15 +40,17 @@ async function submit() {
     success.value = '';
     loading.value = true;
     try {
-        const resp = await axios.post('/api/transactions', {
-            receiver_id: receiverId,
-            amount: amount
+        await axios.post('/api/transactions', {
+            receiver_id: receiverId.value,
+            amount: amount.value
         });
         success.value = 'Transfer succeeded';
+        errors.value = [];
         emit('transfer-success');
     } catch (e) {
         if (e.response?.data?.errors) {
-            error.value = Object.values(e.response.data.errors).flat().join(', ');
+            console.log(e.response.data.errors)
+            errors.value = e.response.data.errors;
         } else if (e.response?.data?.message) {
             error.value = e.response.data.message;
         } else {

@@ -102,7 +102,8 @@ function onTransferSuccess() {
 <style>
 
 h1, h2, h3 {
-    margin: 0 0 12px 0;
+    font-weight: bold;
+    margin: 0 0 24px 0;
 }
 
 .container-ma {

@@ -15,7 +15,6 @@
             <br>
             <button class="button-ma" :disabled="loading">{{ loading ? 'Sending...' : 'Send' }}</button>
             <div v-if="error" style="color:red;margin-top:10px">{{ error }}</div>
-            <div v-if="success" style="color:green;margin-top:10px">{{ success }}</div>
         </form>
     </div>
 </template>
@@ -33,18 +32,15 @@ const amount = ref('');
 const loading = ref(false);
 const error = ref('');
 const errors = ref([]);
-const success = ref('');
 
 async function submit() {
     error.value = '';
-    success.value = '';
     loading.value = true;
     try {
         await axios.post('/api/transactions', {
             receiver_id: receiverId.value,
             amount: amount.value
         });
-        success.value = 'Transfer succeeded';
         errors.value = [];
         emit('transfer-success');
     } catch (e) {

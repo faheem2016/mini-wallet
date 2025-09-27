@@ -27,6 +27,7 @@ export type AppPageProps<
 };
 
 export interface User {
+    api_token: string;
     id: number;
     name: string;
     email: string;

@@ -38,6 +38,9 @@ class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
 
+        $user = $request->user();
+        $user->api_token = $user->createToken('auth-token')->plainTextToken;
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),

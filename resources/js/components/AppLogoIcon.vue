@@ -13,9 +13,18 @@ defineProps<Props>();
 </script>
 
 <template>
-    <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 7C3 4.79086 4.79086 3 7 3H17C19.2091 3 21 4.79086 21 7V17C21 19.2091 19.2091 21 17 21H7C4.79086 21 3 19.2091 3 17V7Z" stroke="#000000" stroke-width="2"/>
-        <path d="M12 12C12 10.3431 13.3431 9 15 9H20C20.5523 9 21 9.44772 21 10V14C21 14.5523 20.5523 15 20 15H15C13.3431 15 12 13.6569 12 12Z" stroke="#000000" stroke-width="2"/>
-        <path d="M15 12L15.1 12" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-16 w-16 text-blue-600"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+    >
+        <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2m4-2h-6m0 0a2 2 0 012-2h4a2 2 0 012 2h-6z"
+        />
     </svg>
 </template>

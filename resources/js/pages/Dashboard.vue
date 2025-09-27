@@ -25,7 +25,7 @@ const user = page.props.auth.user;
 const userId = user.id;
 const token = user.api_token;
 
-axios.defaults.baseURL = 'http://mini-wallet.test';
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
 const balance = ref('0.00');
